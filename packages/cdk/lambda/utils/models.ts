@@ -16,7 +16,7 @@ import {
   AmazonGeneralImageParams,
   AmazonAdvancedImageParams,
   StreamingChunk,
-} from 'generative-ai-use-cases-jp';
+} from 'generative-ai-use-cases';
 import {
   ConverseCommandInput,
   ConverseCommandOutput,
@@ -25,7 +25,7 @@ import {
   ConversationRole,
   ContentBlock,
 } from '@aws-sdk/client-bedrock-runtime';
-import { modelFeatureFlags } from '@generative-ai-use-cases-jp/common';
+import { modelFeatureFlags } from '@generative-ai-use-cases/common';
 
 // Default Models
 
@@ -1070,6 +1070,22 @@ export const BEDROCK_TEXT_GEN_MODELS: {
     extractConverseStreamOutput: extractConverseStreamOutput,
   },
   'mistral.mistral-large-2407-v1:0': {
+    defaultParams: MISTRAL_DEFAULT_PARAMS,
+    usecaseParams: USECASE_DEFAULT_PARAMS,
+    createConverseCommandInput: createConverseCommandInput,
+    createConverseStreamCommandInput: createConverseStreamCommandInput,
+    extractConverseOutput: extractConverseOutput,
+    extractConverseStreamOutput: extractConverseStreamOutput,
+  },
+  'us.mistral.pixtral-large-2502-v1:0': {
+    defaultParams: MISTRAL_DEFAULT_PARAMS,
+    usecaseParams: USECASE_DEFAULT_PARAMS,
+    createConverseCommandInput: createConverseCommandInput,
+    createConverseStreamCommandInput: createConverseStreamCommandInput,
+    extractConverseOutput: extractConverseOutput,
+    extractConverseStreamOutput: extractConverseStreamOutput,
+  },
+  'eu.mistral.pixtral-large-2502-v1:0': {
     defaultParams: MISTRAL_DEFAULT_PARAMS,
     usecaseParams: USECASE_DEFAULT_PARAMS,
     createConverseCommandInput: createConverseCommandInput,

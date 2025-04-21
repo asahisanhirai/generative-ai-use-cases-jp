@@ -61,7 +61,7 @@ const fileLimit: FileLimit = {
     image: ['.jpg', '.jpeg', '.png', '.webp'],
     video: ['.mkv', '.mov', '.mp4', '.webm'],
   },
-  maxFileCount: 5,
+  maxFileCount: 20,
   maxFileSizeMB: 4.5,
   maxImageFileCount: 20,
   maxImageFileSizeMB: 3.75,

@@ -54,13 +54,7 @@
     "agentRegion": "us-east-1",
     "searchAgentEnabled": true,
     "searchApiKey": "BSA-eJ54ozFy8lVPDrU20o5je83y0O8",
-    "agents": [
-      {
-        "displayName": "Code Interpreter2",
-        "agentId": "RZ8HCYJBO8",
-        "aliasId": "RSQAIZ6PVD"
-      }
-    ],
+    "agents": [],
     "inlineAgents": false,
     "flows": [],
     "allowedIpV4AddressRanges": null,

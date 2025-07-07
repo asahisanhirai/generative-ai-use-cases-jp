@@ -11,6 +11,7 @@ import {
 } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import Setting from './pages/Setting';
+import StatPage from './pages/StatPage.tsx';
 import ChatPage from './pages/ChatPage';
 import SharedChatPage from './pages/SharedChatPage';
 import SummarizePage from './pages/SummarizePage';
@@ -25,9 +26,11 @@ import GenerateImagePage from './pages/GenerateImagePage';
 import GenerateVideoPage from './pages/GenerateVideoPage';
 import OptimizePromptPage from './pages/OptimizePromptPage';
 import TranscribePage from './pages/TranscribePage';
+import MeetingMinutesPage from './pages/MeetingMinutesPage';
 import AgentChatPage from './pages/AgentChatPage.tsx';
 import FlowChatPage from './pages/FlowChatPage';
 import VoiceChatPage from './pages/VoiceChatPage';
+import McpChatPage from './pages/McpChatPage';
 import { MODELS } from './hooks/useModel';
 import { Authenticator } from '@aws-amplify/ui-react';
 import UseCaseBuilderEditPage from './pages/useCaseBuilder/UseCaseBuilderEditPage.tsx';
@@ -49,6 +52,7 @@ const samlAuthEnabled: boolean =
   import.meta.env.VITE_APP_SAMLAUTH_ENABLED === 'true';
 const agentEnabled: boolean = import.meta.env.VITE_APP_AGENT_ENABLED === 'true';
 const inlineAgents: boolean = import.meta.env.VITE_APP_INLINE_AGENTS === 'true';
+const mcpEnabled: boolean = import.meta.env.VITE_APP_MCP_ENABLED === 'true';
 const {
   visionEnabled,
   imageGenModelIds,
@@ -68,6 +72,10 @@ const routes: RouteObject[] = [
   {
     path: '/setting',
     element: <Setting />,
+  },
+  {
+    path: '/stats',
+    element: <StatPage />,
   },
   {
     path: '/chat',
@@ -91,6 +99,12 @@ const routes: RouteObject[] = [
     ? {
         path: '/summarize',
         element: <SummarizePage />,
+      }
+    : null,
+  enabled('meetingMinutes')
+    ? {
+        path: '/meeting-minutes',
+        element: <MeetingMinutesPage />,
       }
     : null,
   enabled('writer')
@@ -177,6 +191,12 @@ const routes: RouteObject[] = [
     ? {
         path: '/voice-chat',
         element: <VoiceChatPage />,
+      }
+    : null,
+  mcpEnabled
+    ? {
+        path: '/mcp',
+        element: <McpChatPage />,
       }
     : null,
   {

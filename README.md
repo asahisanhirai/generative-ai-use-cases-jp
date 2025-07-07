@@ -50,6 +50,11 @@ GenU provides a variety of standard use cases leveraging generative AI. These us
         <td>LLMs are good at summarizing large amounts of text. Beyond simple summarization, they can also extract necessary information in a conversational format after being given text as context. For example, after reading a contract, you can ask questions like "What are the conditions for XXX?" or "What is the amount for YYY?"</td>
       </tr>
       <tr>
+        <td>Meeting Minutes</td>
+        <td>Automatically generate meeting minutes from audio recordings or real-time transcription. Choose from Transcription, News Paper, or FAQ style with zero prompt engineering required.
+        </td>
+      </tr>
+      <tr>
         <td>Writing</td>
         <td>LLMs can suggest improvements from a more objective perspective, considering not only typos but also the flow and content of the text. You can expect to improve quality by having the LLM objectively check points you might have missed before showing your work to others.</td>
       </tr>
@@ -99,10 +104,12 @@ When using Knowledge Base, advanced RAG features such as [Advanced Parsing](docs
 Knowledge Base also allows for [Metadata Filter Settings](docs/en/DEPLOY_OPTION.md#metadata-filter-configuration).
 For example, you can meet requirements such as "switching accessible data sources by organization" or "allowing users to set filters from the UI."
 
+Additionally, it is possible to build a RAG that references data outside of AWS by [enabling MCP chat](docs/en/DEPLOY_OPTION.md#enabling-mcp-chat-use-case) and adding an external service's MCP server to [packages/cdk/mcp-api/mcp.json](/packages/cdk/mcp-api/mcp.json).
+
 </details>
 
 <details markdown="1">
-  <summary><strong><ins>I want to use custom AI agents or Bedrock Flows within my organization</ins></strong></summary>
+  <summary><strong><ins>I want to use custom Bedrock Agents or Bedrock Flows within my organization</ins></strong></summary>
 
 When you [enable agents](docs/en/DEPLOY_OPTION.md#enabling-agent-chat-use-case) in GenU, Web Search Agent and Code Interpreter Agent are created.
 The Web Search Agent searches the web for information to answer user questions. For example, it can answer "What is AWS GenU?"
@@ -116,6 +123,8 @@ Additionally, you can [hide unnecessary standard use cases](docs/en/DEPLOY_OPTIO
 
 Similarly, there is an [import feature](docs/en/DEPLOY_OPTION.md#enabling-flow-chat-use-case) for Bedrock Flows, so please make use of it.
 
+Additionally, you can create agents that perform actions on services outside AWS by [enabling MCP chat](docs/en/DEPLOY_OPTION.md#enabling-mcp-chat-use-case) and adding external MCP servers to [packages/cdk/mcp-api/mcp.json](/packages/cdk/mcp-api/mcp.json).
+
 </details>
 
 <details markdown="1">
@@ -125,6 +134,7 @@ GenU provides a feature called "Use Case Builder" that allows you to create cust
 Custom use case screens are automatically generated just from prompt templates, so no code changes to GenU itself are required.
 Created use cases can be shared with all users who can log into the application, not just for personal use.
 Use Case Builder can be [disabled](docs/en/DEPLOY_OPTION.md#use-case-builder-configuration) if not needed.
+Use cases can also be exported as .json files and shared with third parties. When sharing use cases, please be careful not to include any confidential information in prompts or usage examples. Use cases shared by third parties can be imported by uploading the .json file from the new use case creation screen.
 For more details about Use Case Builder, please check <a href="https://aws.amazon.com/jp/blogs/news/genu-use-cases-builder/">this blog</a>.
 <br/>
 <br/>

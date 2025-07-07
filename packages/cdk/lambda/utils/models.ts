@@ -16,6 +16,7 @@ import {
   AmazonGeneralImageParams,
   AmazonAdvancedImageParams,
   StreamingChunk,
+  Metadata,
 } from 'generative-ai-use-cases';
 import {
   ConverseCommandInput,
@@ -30,7 +31,7 @@ import {
   applyAutoCacheToMessages,
   applyAutoCacheToSystem,
 } from './promptCache';
-import { getFormatFromMimeType } from './media';
+import { getFormatFromMimeType, getMimeTypeFromFileName } from './media';
 
 // Default Models
 
@@ -242,6 +243,14 @@ const USECASE_DEFAULT_PARAMS: UsecaseConverseInferenceParams = {
       },
     },
   },
+  '/meeting-minutes': {
+    promptCachingConfig: {
+      autoCacheFields: {
+        system: true,
+        messages: true,
+      },
+    },
+  },
   '/use-case-builder': {
     promptCachingConfig: {
       autoCacheFields: {
@@ -349,10 +358,16 @@ const createConverseCommandInput = (
     // Put images, videos, and documents before the task, instruction, and user query
     if (message.extraData) {
       message.extraData.forEach((extra) => {
+        // Prior to v4.2.4, 'extra.source.mediaType' could be empty.
+        // For resumed conversations from older versions, we fallback to detecting mimeType based on the extension.
+        const mimeType =
+          extra.source.mediaType || getMimeTypeFromFileName(extra.name);
+        const format = getFormatFromMimeType(mimeType);
+
         if (extra.type === 'image' && extra.source.type === 'base64') {
           contentBlocks.push({
             image: {
-              format: getFormatFromMimeType(extra.source.mediaType),
+              format,
               source: {
                 bytes: Buffer.from(extra.source.data, 'base64'),
               },
@@ -361,7 +376,7 @@ const createConverseCommandInput = (
         } else if (extra.type === 'file' && extra.source.type === 'base64') {
           contentBlocks.push({
             document: {
-              format: getFormatFromMimeType(extra.source.mediaType),
+              format,
               name: extra.name
                 .split('.')[0]
                 .replace(/[^a-zA-Z0-9\s\-()[\]]/g, 'X'), // If the file name contains Japanese, it will cause an error, so convert it
@@ -373,7 +388,7 @@ const createConverseCommandInput = (
         } else if (extra.type === 'video' && extra.source.type === 'base64') {
           contentBlocks.push({
             video: {
-              format: getFormatFromMimeType(extra.source.mediaType),
+              format,
               source: {
                 bytes: Buffer.from(extra.source.data, 'base64'),
               },
@@ -382,7 +397,7 @@ const createConverseCommandInput = (
         } else if (extra.type === 'video' && extra.source.type === 's3') {
           contentBlocks.push({
             video: {
-              format: getFormatFromMimeType(extra.source.mediaType),
+              format,
               source: {
                 s3Location: {
                   uri: extra.source.data,
@@ -545,7 +560,10 @@ const extractConverseOutput = (
         return '';
       })
       .join('\n');
-    return { text: responseText, trace: reasoningText };
+    const metadata = {
+      usage: output.usage,
+    } as Metadata;
+    return { text: responseText, trace: reasoningText, metadata };
   }
 
   return { text: '', trace: '' };
@@ -563,6 +581,11 @@ const extractConverseStreamOutput = (
     const reasoningText =
       output.contentBlockDelta.delta?.reasoningContent?.text;
     return { text: '', trace: reasoningText };
+  } else if (output.metadata && output.metadata.usage) {
+    return {
+      text: '',
+      metadata: { usage: output.metadata.usage } as Metadata,
+    };
   }
 
   return { text: '', trace: '' };

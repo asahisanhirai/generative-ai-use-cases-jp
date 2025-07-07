@@ -21,6 +21,8 @@ import {
   PiMagicWand,
   PiMicrophoneBold,
   PiTreeStructure,
+  PiNotebook,
+  PiGraph,
 } from 'react-icons/pi';
 import { Outlet } from 'react-router-dom';
 import Drawer, { ItemProps } from './components/Drawer';
@@ -41,6 +43,7 @@ const ragKnowledgeBaseEnabled: boolean =
   import.meta.env.VITE_APP_RAG_KNOWLEDGE_BASE_ENABLED === 'true';
 const agentEnabled: boolean = import.meta.env.VITE_APP_AGENT_ENABLED === 'true';
 const inlineAgents: boolean = import.meta.env.VITE_APP_INLINE_AGENTS === 'true';
+const mcpEnabled: boolean = import.meta.env.VITE_APP_MCP_ENABLED === 'true';
 const {
   visionEnabled,
   imageGenModelIds,
@@ -125,6 +128,15 @@ const App: React.FC = () => {
           };
         })
       : []),
+    mcpEnabled
+      ? {
+          label: t('mcp_chat.title'),
+          to: '/mcp',
+          icon: <PiGraph />,
+          display: 'usecase' as const,
+          sub: 'Experimental',
+        }
+      : null,
     flowChatEnabled
       ? {
           label: t('navigation.flowChat'),
@@ -139,6 +151,7 @@ const App: React.FC = () => {
           to: '/voice-chat',
           icon: <PiMicrophoneBold />,
           display: 'usecase' as const,
+          sub: 'Experimental',
         }
       : null,
     enabled('generate')
@@ -154,6 +167,14 @@ const App: React.FC = () => {
           label: t('navigation.summary'),
           to: '/summarize',
           icon: <PiNote />,
+          display: 'usecase' as const,
+        }
+      : null,
+    enabled('meetingMinutes')
+      ? {
+          label: t('navigation.meetingMinutes'),
+          to: '/meeting-minutes',
+          icon: <PiNotebook />,
           display: 'usecase' as const,
         }
       : null,

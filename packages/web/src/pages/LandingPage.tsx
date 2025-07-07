@@ -19,6 +19,7 @@ import {
   PiTreeStructure,
   PiPenNib,
   PiMicrophoneBold,
+  PiGraph,
 } from 'react-icons/pi';
 import AwsIcon from '../assets/aws.svg?react';
 import useInterUseCases from '../hooks/useInterUseCases';
@@ -35,6 +36,7 @@ import {
   WebContentPageQueryParams,
   VideoAnalyzerPageQueryParams,
   DiagramPageQueryParams,
+  McpPageQueryParams,
 } from '../@types/navigate';
 import queryString from 'query-string';
 import { MODELS } from '../hooks/useModel';
@@ -46,6 +48,7 @@ const ragKnowledgeBaseEnabled: boolean =
   import.meta.env.VITE_APP_RAG_KNOWLEDGE_BASE_ENABLED === 'true';
 const agentEnabled: boolean = import.meta.env.VITE_APP_AGENT_ENABLED === 'true';
 const inlineAgents: boolean = import.meta.env.VITE_APP_INLINE_AGENTS === 'true';
+const mcpEnabled: boolean = import.meta.env.VITE_APP_MCP_ENABLED === 'true';
 const {
   imageGenModelIds,
   videoGenModelIds,
@@ -93,6 +96,13 @@ const LandingPage: React.FC = () => {
     } else {
       navigate(`/agent`);
     }
+  };
+
+  const demoMcp = () => {
+    const params: McpPageQueryParams = {
+      content: t('landing.demo.mcp.content'),
+    };
+    navigate(`/mcp?${queryString.stringify(params)}`);
   };
 
   const demoVoiceChat = () => {
@@ -162,6 +172,10 @@ const LandingPage: React.FC = () => {
       content: t('landing.demo.diagram.content'),
     };
     navigate(`/diagram?${queryString.stringify(params)}`);
+  };
+
+  const demoMeetingMinutes = () => {
+    navigate('/meeting-minutes');
   };
 
   const demoBlog = () => {
@@ -310,6 +324,14 @@ const LandingPage: React.FC = () => {
             description={t('landing.use_cases.agent_chat.description')}
           />
         )}
+        {mcpEnabled && (
+          <CardDemo
+            label={t('landing.use_cases.mcp_chat.title')}
+            onClickDemo={demoMcp}
+            icon={<PiGraph />}
+            description={t('landing.use_cases.mcp_chat.description')}
+          />
+        )}
         {flowChatEnabled && (
           <CardDemo
             label={t('landing.use_cases.flow_chat.title')}
@@ -340,6 +362,14 @@ const LandingPage: React.FC = () => {
             onClickDemo={demoSummarize}
             icon={<PiNote />}
             description={t('landing.use_cases.summarize.description')}
+          />
+        )}
+        {enabled('meetingMinutes') && (
+          <CardDemo
+            label={t('landing.use_cases.meeting-minutes.title')}
+            onClickDemo={demoMeetingMinutes}
+            icon={<PiNotebook />}
+            description={t('landing.use_cases.meeting-minutes.description')}
           />
         )}
         {enabled('writer') && (

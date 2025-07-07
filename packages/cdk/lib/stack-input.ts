@@ -25,6 +25,7 @@ export const stackInputSchema = z.object({
       video: z.boolean().optional(),
       videoAnalyzer: z.boolean().optional(),
       diagram: z.boolean().optional(),
+      meetingMinutes: z.boolean().optional(),
       voiceChat: z.boolean().optional(),
     })
     .default({}),
@@ -41,6 +42,8 @@ export const stackInputSchema = z.object({
       ])
     )
     .default([
+      'us.anthropic.claude-sonnet-4-20250514-v1:0',
+      'us.anthropic.claude-opus-4-20250514-v1:0',
       'us.anthropic.claude-3-7-sonnet-20250219-v1:0',
       'us.anthropic.claude-3-5-haiku-20241022-v1:0',
       'us.amazon.nova-premier-v1:0',
@@ -132,6 +135,8 @@ export const stackInputSchema = z.object({
     )
     .default([]),
   inlineAgents: z.boolean().default(false),
+  // MCP
+  mcpEnabled: z.boolean().default(false),
   // Guardrail
   guardrailEnabled: z.boolean().default(false),
   // Usecase builder

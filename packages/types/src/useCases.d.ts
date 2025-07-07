@@ -8,6 +8,7 @@ export type HiddenUseCases = {
   video?: boolean;
   videoAnalyzer?: boolean;
   diagram?: boolean;
+  meetingMinutes?: boolean;
   voiceChat?: boolean;
 };
 

@@ -124,6 +124,7 @@ const ChatPage: React.FC = () => {
     rawMessages,
     clear,
     postChat,
+    editChat,
     updateSystemContext,
     updateSystemContextByModel,
     getCurrentSystemContext,
@@ -247,6 +248,26 @@ const ChatPage: React.FC = () => {
   const onStop = useCallback(() => {
     forceToStop();
   }, [forceToStop]);
+
+  const onEdit = useCallback(
+    (modifiedPrompt: string) => {
+      setFollowing(true);
+      editChat(
+        modifiedPrompt,
+        false,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        base64Cache,
+        overrideModelParameters
+      );
+    },
+    [editChat, base64Cache, setFollowing, overrideModelParameters]
+  );
 
   const [creatingShareId, setCreatingShareId] = useState(false);
   const [deletingShareId, setDeletingShareId] = useState(false);
@@ -488,6 +509,12 @@ const ChatPage: React.FC = () => {
                   setSaveSystemContext={setSaveSystemContext}
                   setShowSystemContextModal={setShowSystemContextModal}
                   allowRetry={idx === showingMessages.length - 1}
+                  editable={idx === showingMessages.length - 2 && !loading}
+                  onCommitEdit={
+                    idx === showingMessages.length - 2 && !loading
+                      ? onEdit
+                      : undefined
+                  }
                   retryGeneration={onRetry}
                 />
                 <div className="w-full border-b border-gray-300"></div>

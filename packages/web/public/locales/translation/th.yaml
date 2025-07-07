@@ -42,6 +42,7 @@ common:
   error: เกิดข้อผิดพลาด
   errorNoSuggestions: ไม่พบคำแนะนำ
   execute: ดำเนินการ
+  export: ส่งออก
   feedback_received: ได้รับข้อเสนอแนะแล้ว ขอบคุณ
   here: ที่นี่
   load_more: โหลดเพิ่มเติม
@@ -487,6 +488,11 @@ landing:
       description: >-
         AI สร้างภาพสามารถสร้างภาพใหม่ตามข้อความหรือภาพ ช่วยให้สามารถแสดงแนวคิดได้ทันทีและคาดว่าจะช่วยปรับปรุงประสิทธิภาพในงานออกแบบ ในคุณสมบัตินี้ คุณสามารถรับความช่วยเหลือจาก LLM ในการสร้าง prompt
       title: การสร้างภาพ
+    meeting-minutes:
+      description: >-
+        สร้างรายงานการประชุมโดยอัตโนมัติจากการบันทึกเสียงหรือการถอดความแบบเรียลไทม์
+        ไม่จำเป็นต้องเขียน prompt สามารถเลือกจากรูปแบบการถอดความใกล้เคียงต้นฉบับ แบบหนังสือพิมพ์ หรือ FAQ
+      title: การสร้างรายงานการประชุม
     rag_chat:
       description_kb: >-
         RAG (Retrieval Augmented Generation) เป็นวิธีที่รวมการค้นคืนข้อมูลและการสร้างข้อความ LLM ช่วยให้สามารถเข้าถึงข้อมูลได้อย่างมีประสิทธิภาพ
@@ -547,6 +553,33 @@ language:
   ko: ภาษาเกาหลี
   th: ภาษาไทย
   zh: ภาษาจีน
+meetingMinutes:
+  auto_generate: สร้างอัตโนมัติ
+  custom_prompt: พรอมต์แบบกำหนดเอง
+  custom_prompt_placeholder: ป้อนพรอมต์แบบกำหนดเองสำหรับการสร้างรายงานการประชุม...
+  frequency: ความถี่ในการสร้าง
+  frequency_10min: ทุก 10 นาที
+  frequency_1min: ทุกนาที
+  frequency_5min: ทุก 5 นาที
+  generate: สร้าง
+  generate_minutes_header: สร้างรายงานการประชุม
+  generated_minutes: รายงานการประชุมที่สร้างแล้ว
+  generating: กำลังสร้างรายงานการประชุม...
+  generation_error: ไม่สามารถสร้างรายงานการประชุมได้ กรุณาลองอีกครั้ง
+  generation_success: สร้างรายงานการประชุมสำเร็จ
+  last_generated: สร้างล่าสุดเมื่อ {{time}}
+  minutes_placeholder: รายงานการประชุมจะปรากฏที่นี่หลังจากสร้าง
+  model: โมเดล
+  next_generation_in: 'สร้างครั้งถัดไปใน : '
+  record_transcribe: บันทึกและถอดความ
+  speech_recognition: การรู้จำเสียงพูด
+  style: รูปแบบรายงานการประชุม
+  style_custom: กำหนดเอง
+  style_faq: คำถามที่พบบ่อย
+  style_newspaper: หนังสือพิมพ์
+  style_transcription: การถอดความ
+  title: ตัวสร้างรายงานการประชุม
+  transcript: บันทึกการถอดความ
 model:
   parameters:
     reasoning: การให้เหตุผล
@@ -558,6 +591,7 @@ navigation:
   flowChat: Flow Chat
   home: Home (หน้าหลัก)
   imageGeneration: การสร้างภาพ
+  meetingMinutes: รายงานการประชุม
   promptOptimization: ปรับแต่ง Prompt ให้ตรงความต้องการ
   ragChat: RAG Chat
   settings: ตั้งค่า
@@ -861,6 +895,8 @@ useCaseBuilder:
       {{text}} สร้างแบบฟอร์มที่รับอินพุตข้อความและฝังค่าที่ป้อนโดยตรงลงใน prompt template
   helpTitle: ช่วยเหลือ
   inputExamples: ตัวอย่างอินพุต
+  invalidFileType: รูปแบบไฟล์ไม่ถูกต้อง โปรดเลือกไฟล์ JSON
+  invalidJsonFormat: รูปแบบ JSON ไม่ถูกต้อง โปรดตรวจสอบเนื้อหาไฟล์
   loadMore: โหลดเพิ่มเติม
   mainMenu: เมนูหลัก
   meeting:

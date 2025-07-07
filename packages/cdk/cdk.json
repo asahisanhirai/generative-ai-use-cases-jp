@@ -56,6 +56,7 @@
     "searchApiKey": "BSA-eJ54ozFy8lVPDrU20o5je83y0O8",
     "agents": [],
     "inlineAgents": false,
+    "mcpEnabled": false,
     "flows": [],
     "allowedIpV4AddressRanges": null,
     "allowedIpV6AddressRanges": null,
